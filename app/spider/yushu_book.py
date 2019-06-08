@@ -1,7 +1,7 @@
 """
   Created by lin at 2019-06-08
 """
-from httper import HTTP
+from app.libs.httper import HTTP
 from flask import current_app
 
 
@@ -17,7 +17,6 @@ class YuShuBook:
 
     @classmethod
     def search_by_keyword(cls, keyword, page=1):
-        print(page, 'aaa', current_app.config['PER_PAGE'])
         url = cls.keyword_url.format(keyword, current_app.config['PER_PAGE'], cls.calculate_start(page))
         result = HTTP.get(url)
         return result
