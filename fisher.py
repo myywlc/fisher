@@ -2,16 +2,19 @@
   Created by lin at 2019-06-08
 """
 
-from flask import Flask, make_response
+from flask import Flask
+from helper import is_isbn_or_key
 
 app = Flask(__name__)
 
 app.config.from_object('config')
 
 
-@app.route('/hello')
-def hello():
-    return '<div style="color: red">lin</div>'
+@app.route('/book/search/<q>/<page>')
+def search(q, page):
+
+    isbn_or_key = is_isbn_or_key(q)
+    pass
 
 
 if __name__ == '__main__':
