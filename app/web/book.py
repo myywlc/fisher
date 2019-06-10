@@ -1,7 +1,7 @@
 """
   Created by lin at 2019-06-08
 """
-from flask import jsonify, request, flash, render_template
+from flask import request, flash, render_template
 from app.libs.helper import is_isbn_or_key
 from app.spider.yushu_book import YuShuBook
 from . import web
@@ -35,4 +35,8 @@ def search():
 
 @web.route('/book/<isbn>/detail')
 def book_detail(isbn):
+    yushu_book = YuShuBook()
+    yushu_book.search_by_isbn(isbn)
+    book = BookViewModel(yushu_book.first)
+    return render_template('book_detail.html', book=book, wishes=[], gifts=[])
     pass
