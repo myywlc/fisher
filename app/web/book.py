@@ -36,3 +36,15 @@ def search():
 @web.route('/book/<isbn>/detail')
 def book_detail(isbn):
     pass
+
+
+@web.route('/ssr/api/')
+def ssr_api():
+    data = {'text': 'lin, 你好!'}
+    return jsonify(data), {'content-type': 'application/json'}
+
+
+@web.route('/ssr/demo')
+def ssr_demo():
+    data = {'text': 'lin, 你好!'}
+    return render_template('demo.html', data=data)
