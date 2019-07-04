@@ -1,15 +1,22 @@
 """
   Created by lin at 2019-06-11
 """
-
+from flask import current_app
 from sqlalchemy import Column, Integer, Boolean, ForeignKey, String
-from sqlalchemy.orm import relationships
+from sqlalchemy.orm import relationship
 from app.models.base import Base
 
 
 class Gift(Base):
+    __tablename__ = 'gift'
+
     id = Column(Integer, primary_key=True)
-    user = relationships('User')
+    user = relationship('User')
     uid = Column(Integer, ForeignKey('user.id'))
     isbn = Column(String(15), nullable=False)
     launched = Column(Boolean, default=False)
+
+    def recent(self):
+        recent_gift = Gift.query.filter_by(launched=False).group_by(Gift.book_id).order_by(
+            Gift.create_time).limit(current_app.config['RECENT_BOOK_PER_PAGE']).distinct().all()
+        return recent_gift
