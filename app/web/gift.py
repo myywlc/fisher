@@ -10,6 +10,12 @@ from flask_login import login_required, current_user
 @web.route('/my/gifts')
 @login_required
 def my_gifts():
+    # uid = current_user.id
+    # gifts = Gift.query.filter_by(uid=uid, launched=False).order_by(
+    #     desc(Gift.create_time)).all()
+    # wishes_count = GiftService.get_wish_counts(gifts)
+    # view_model = MyGifts(gifts, wishes_count).package()
+    # return render_template('my_gifts.html', gifts=view_model)
     return 'my_gifts'
 
 
